@@ -1,20 +1,52 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+    const navigate = useNavigate();
+
+    // Check if user is logged in by checking for the authToken in localStorage
+    const isLoggedIn = !!localStorage.getItem('authToken');
+
+    // Handle logout
+    const handleLogout = () => {
+        localStorage.removeItem('authToken'); // Remove token
+        navigate('/login'); // Redirect to login page
+    };
+
     return (
-        <nav className="bg-blue-600 text-white p-4">
-            <div className="container mx-auto flex justify-between">
-                <h1 className="text-lg font-bold">User Auth App</h1>
+        <nav className="bg-blue-500 px-4 py-2">
+            <div className="flex items-center justify-between">
                 <div>
-                    <Link to="/" className="mr-4 hover:underline">
+                    <Link to="/" className="text-white font-bold text-xl">
+                        MyApp
+                    </Link>
+                </div>
+                <div className="flex items-center space-x-4">
+                <Link to="/home"  className="text-white hover:underline font-medium">
                         Home
                     </Link>
-                    <Link to="/login" className="mr-4 hover:underline">
-                        Login
-                    </Link>
-                    <Link to="/signup" className="hover:underline">
-                        Signup
-                    </Link>
+                    {!isLoggedIn ? (
+                        <>
+                            <Link
+                                to="/login"
+                                className="text-white hover:underline font-medium"
+                            >
+                                Login
+                            </Link>
+                            <Link
+                                to="/signup"
+                                className="text-white hover:underline font-medium"
+                            >
+                                Sign Up
+                            </Link>
+                        </>
+                    ) : (
+                        <button
+                            onClick={handleLogout}
+                            className="text-white bg-red-500 hover:bg-red-700 font-medium px-4 py-2 rounded"
+                        >
+                            Logout
+                        </button>
+                    )}
                 </div>
             </div>
         </nav>
@@ -22,3 +54,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

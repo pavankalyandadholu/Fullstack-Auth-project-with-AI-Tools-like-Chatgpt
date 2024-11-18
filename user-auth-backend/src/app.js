@@ -14,6 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/auth', router);
+
 app.get('/',(req,res)=>{
     res.status(200).json({status:200,message:"API is working! "})
 })

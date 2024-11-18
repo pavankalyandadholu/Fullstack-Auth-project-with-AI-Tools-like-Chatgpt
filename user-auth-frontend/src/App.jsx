@@ -1,4 +1,5 @@
 import AppRoutes from './routes/AppRoutes';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
     return <AppRoutes />;

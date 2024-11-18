@@ -1,6 +1,6 @@
 import User from "./user.Model.js";
 
-
+import jwt from 'jsonwebtoken';
 
 export default class UserController{
    async singUp(req,res){
@@ -24,17 +24,29 @@ export default class UserController{
         try {
             const { email, password } = req.body;
     
+            // Find the user by email
             const user = await User.findOne({ email });
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
     
+            // Compare the provided password with the stored hash
             const isMatch = await user.comparePassword(password);
             if (!isMatch) {
                 return res.status(400).json({ message: 'Invalid credentials' });
             }
     
-            res.status(200).json({ message: 'Login successful', user: { email: user.email } });
+            // Generate a JWT token
+            const token = jwt.sign(
+                { id: user._id, email: user.email }, // Payload
+                process.env.JWT_SECRET, // Secret key
+                { expiresIn: '1h' } // Token expiration
+            );
+    
+            res.status(200).json({
+                message: 'Login successful',
+                token,
+            });
         } catch (error) {
             res.status(500).json({ message: 'Server error', error: error.message });
         }

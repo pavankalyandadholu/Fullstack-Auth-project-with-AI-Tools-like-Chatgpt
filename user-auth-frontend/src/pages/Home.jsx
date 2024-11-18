@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react';
-import axios from '../api/axios';
+import axios from 'axios';
 
 const Home = () => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    const token = localStorage.getItem('authToken');
+    console.log(token, 'token is')
+    if (!token) return false;
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('/auth'); // Example API endpoint
+                const response = await axios.get('http://localhost:5000/api/auth/protected', {
+                    headers: { Authorization: `Bearer ${token}` },
+                });// Example API endpoint
                 setData(response.data);
             } catch (err) {
                 setError(err.message);
