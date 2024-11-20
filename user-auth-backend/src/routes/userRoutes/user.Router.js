@@ -5,6 +5,7 @@ import authMiddleware from '../../middlewares/auth.middleware.js';
 
 const userController = new UserController();
 // Placeholder route for testing
+// tesing to push to other branch
 router.get('/', (req, res) => {
     res.json({ message: 'Auth route is working!' });
 });
