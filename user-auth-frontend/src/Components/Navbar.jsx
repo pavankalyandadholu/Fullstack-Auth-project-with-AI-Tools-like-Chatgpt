@@ -22,7 +22,7 @@ const Navbar = () => {
                 </div>
                 <div className="flex items-center space-x-4">
                 <Link to="/home"  className="text-white hover:underline font-medium">
-                        Home
+                        Home 
                     </Link>
                     {!isLoggedIn ? (
                         <>
