@@ -4,7 +4,7 @@ import {
   getFeedPosts,
   likePost,
   editPost,
-  deletePost,
+  deletePost,getUserPosts
 } from "./post.controller.js";
 import authMiddleware from "../../middlewares/auth.middleware.js";
 
@@ -13,6 +13,8 @@ postRoutes.use(authMiddleware)
 // Route to create a new post
 postRoutes.post("/", createPost);
 
+// Route to fetch posts for the feed
+postRoutes.get("/my-posts", getUserPosts);
 // Route to fetch posts for the feed
 postRoutes.get("/feed", getFeedPosts);
 

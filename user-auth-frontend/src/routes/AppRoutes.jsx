@@ -4,6 +4,7 @@ import Login from '../pages/Login';
 import Signup from '../pages/SignUp';
 import Navbar from '../Components/Navbar';
 import ProtectedRoute from '../Components/ProtectedRoute';
+import Feed from '../pages/Feed';
 
 const AppRoutes = () => {
     return (
@@ -15,6 +16,14 @@ const AppRoutes = () => {
                     element={
                         <ProtectedRoute>
                             <Home />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/feed"
+                    element={
+                        <ProtectedRoute>
+                            <Feed />
                         </ProtectedRoute>
                     }
                 />

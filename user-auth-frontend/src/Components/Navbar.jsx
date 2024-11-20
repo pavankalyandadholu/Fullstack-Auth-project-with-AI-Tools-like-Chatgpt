@@ -40,12 +40,20 @@ const Navbar = () => {
                             </Link>
                         </>
                     ) : (
+                        <>
+                          <Link
+                                to="/feed"
+                                className="text-white hover:underline font-medium"
+                            >   Feed
+                            </Link>
                         <button
                             onClick={handleLogout}
                             className="text-white bg-red-500 hover:bg-red-700 font-medium px-4 py-2 rounded"
                         >
                             Logout
                         </button>
+                        </>
+
                     )}
                 </div>
             </div>

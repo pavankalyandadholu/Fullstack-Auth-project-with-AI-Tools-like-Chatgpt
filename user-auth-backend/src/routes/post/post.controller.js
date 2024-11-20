@@ -3,7 +3,6 @@ import Post from "./post.model.js";
 // Create a new post
 export const createPost = async (req, res) => {
   try {
-    console.log("reached")
     const { content, mediaUrl } = req.body;
     const userId = req.user.id; // Assuming `req.user` is set after authentication
 
@@ -16,6 +15,23 @@ export const createPost = async (req, res) => {
     res.status(201).json({ success: true, post: newPost });
   } catch (error) {
     res.status(500).json({ success: false, message: "Error creating post." });
+  }
+};
+// my posts
+
+export const getUserPosts = async (req, res) => {
+  try {
+    const userId = req.user.id; // Authenticated user's ID
+
+    // Fetch posts created by the authenticated user
+    const posts = await Post.find({ author: userId })
+      .populate("author", "username profilePicture")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({ success: true, posts });
+  } catch (error) {
+    console.error("Error fetching user's posts:", error.message);
+    res.status(500).json({ success: false, message: "Error fetching posts." });
   }
 };
 
@@ -34,6 +50,7 @@ export const getFeedPosts = async (req, res) => {
     res.status(500).json({ success: false, message: "Error fetching posts." });
   }
 };
+
 
 // Like or unlike a post
 export const likePost = async (req, res) => {
